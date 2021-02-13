@@ -2,8 +2,12 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtWebEngineWidgets import *
+from flask import Flask, jsonify, json
+from flask_cors import CORS
+from flask import request
 
 import sys
+from subprocess import Popen
 
 class MainWindow(QMainWindow):
 
@@ -11,13 +15,13 @@ class MainWindow(QMainWindow):
         super(MainWindow,self).__init__(*args, **kwargs)
 
         self.browser = QWebEngineView()
-        self.browser.setUrl(QUrl("http://www.google.com"))
+        self.browser.setUrl(QUrl("http://localhost:3000"))
 
         self.setCentralWidget(self.browser)
-
         self.show()
 
+p = Popen(["npm", "start", "--prefix", "/lost-time"])
 app = QApplication(sys.argv)
 window = MainWindow()
-
 app.exec_()
+p.terminate()
