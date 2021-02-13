@@ -11,7 +11,7 @@ class MainWindow(QMainWindow):
         super(MainWindow,self).__init__(*args, **kwargs)
 
         self.browser = QWebEngineView()
-        self.browser.setUrl(QUrl("http://localhost:4123"))
+        self.browser.setUrl(QUrl("http://localhost:3000"))
 
         self.setCentralWidget(self.browser)
         self.show()
