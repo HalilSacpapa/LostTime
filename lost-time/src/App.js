@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from 'react-bootstrap';
 import './App.css';
 import React from 'react';
-import ImageUploader from 'react-images-upload';
+import Dropzone from 'react-dropzone'
 
 function date() {
   var d = new Date();
@@ -30,13 +30,16 @@ class App extends React.Component {
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <Button variant="info">Tell us more about you</Button>{' '}
-          <ImageUploader
-            withIcon={false}
-            buttonText='Upload your daily picture'
-            onChange={this.onDrop}
-            imgExtension={['.jpg', '.png', '.jpeg']}
-            maxFileSize={5242880}
-          />
+          <Dropzone onDrop={acceptedFiles => console.log(acceptedFiles)}>
+            {({getRootProps, getInputProps}) => (
+              <section>
+                <div {...getRootProps()}>
+                  <input {...getInputProps()} />
+                  <Button variant="info">Upload your daily picture</Button>{' '}
+                </div>
+              </section>
+            )}
+          </Dropzone>
         </header>
         <footer className="App-footer">
           <p>Made with love by <i>Halil BAGDADI</i>, <i>Julien CALENGE</i> and <i>Clement GERINIERE</i></p>
