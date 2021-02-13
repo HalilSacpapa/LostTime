@@ -31,14 +31,14 @@ class App extends React.Component {
           <img src={logo} className="App-logo" alt="logo" />
           <Button variant="info">Tell us more about you</Button>{' '}
           <ImageUploader
-            withIcon={true}
-            buttonText='Choose images'
+            withIcon={false}
+            buttonText='Upload your daily picture'
             onChange={this.onDrop}
             imgExtension={['.jpg', '.png', '.jpeg']}
-            maxFileSize={20242880}
+            maxFileSize={5242880}
           />
         </header>
-        <footer>
+        <footer className="App-footer">
           <p>Made with love by <i>Halil BAGDADI</i>, <i>Julien CALENGE</i> and <i>Clement GERINIERE</i></p>
         </footer>
       </div>
