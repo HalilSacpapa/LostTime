@@ -2,10 +2,6 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtWebEngineWidgets import *
-from flask import Flask, jsonify, json
-from flask_cors import CORS
-from flask import request
-
 import sys
 from subprocess import Popen
 
