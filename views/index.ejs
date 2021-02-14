@@ -61,9 +61,10 @@
                 <input type="submit" value="upload">
                 </form> -->
                 <form action="/upload" method="post" enctype="multipart/form-data">
-                    <input type="file" accept="image/*" name="photo">
+                    <input type="file" accept="image/*" name="photo" onchange={onImageChange()}>
                     <p>Drag your files here or click in this area.</p>
                     <button type="submit">Upload</button>
+                    <img id="img"/>
                 </form>
                 <!-- Masthead Subheading-->
             </div>
@@ -90,10 +91,11 @@
             function onImageChange() {
                 if (event.target.files && event.target.files[0]) {
                     let img = event.target.files[0];
-                    var prev = URL.createObjectURL(img);
+                    var preview = URL.createObjectURL(img);
                     console.log(img);
                 }
-                return (prev);
+                elem = document.getElementById("img");
+                elem.src = preview;
             };
         </script>
     </body>
