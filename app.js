@@ -28,7 +28,7 @@ app.get('/', function(req, resp){
 
 app.post('/upload', upload.single('photo'), (req, res) => {
     if(req.file) {
-        res.render('index');
+        res.redirect('/');
     }
     else throw 'error';
 });
