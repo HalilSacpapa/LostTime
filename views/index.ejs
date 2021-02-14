@@ -64,6 +64,7 @@
                     <input type="file" accept="image/*" name="photo" onchange={onImageChange()}>
                     <p>Drag your files here or click in this area.</p>
                     <button id="btn" type="submit">Upload</button>
+                    <h4 id="fail" style="visibility: hidden;">This picture cannot be uploaded.</h4>
                     <img style="width: 500px" id="img"/>
                 </form>
                 <!-- Masthead Subheading-->
@@ -98,6 +99,7 @@
                     console.log(img);
                 }
                 var button = document.getElementById("btn");
+                var elements = document.getElementById("fail");
                 var d = new Date();
                 var m = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
                 var day = time[2];
@@ -105,8 +107,11 @@
                 if (month == m[d.getMonth()] && day == d.getDate()) {
                     button.disabled = false;
                     images.src = preview;
+                    elements.style.visibility = "hidden";
                 } else {
                     button.disabled = true;
+                    images.src = "/";
+                    elements.style.visibility = "visible";
                 }
             };
         </script>
