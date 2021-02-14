@@ -3,10 +3,12 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var fs = require('fs');
 const multer = require('multer');
 const upload = multer({dest: __dirname + '/uploads/images'});
 
 var indexRouter = require('./routes/index');
+const { type } = require('os');
 
 var app = express();
 const PORT = 4123;
@@ -27,14 +29,28 @@ app.get('/', function(req, resp){
 })
 
 app.post('/upload', upload.single('photo'), (req, res) => {
-    if(req.file) {
-        res.redirect('/');
-    }
-    else throw 'error';
+  if(req.file) {
+    var d = new Date();
+    var fullDate = d.getDate() + '-' + (d.getMonth() + 1) + '-' + d.getFullYear();
+    relative_path = "/uploads/images/" + req.file.filename;
+    filetype = ((req.file.mimetype).split("/"))[1];
+    data = {
+      path:relative_path,
+      name:req.file.originalname,
+      type:filetype,
+      state:5
+    };
+    log = { [fullDate]:data };
+    console.log(log);
+    fs.appendFile('uploads/logs.json', JSON.stringify(log) + '\n', (err) => {
+      res.redirect('/');
+    })
+  }
+  else throw 'error';
 });
 
 app.listen(PORT, () => {
-    console.log('Listening at ' + PORT );
+  console.log('Listening at ' + PORT );
 });
 
 // catch 404 and forward to error handler

@@ -90,6 +90,7 @@
         <script src="js/scripts.js"></script>
         <script>
             function onImageChange() {
+                // get image preview
                 var images = document.getElementById("img");
                 if (event.target.files && event.target.files[0]) {
                     let img = event.target.files[0];
@@ -98,13 +99,16 @@
                     var preview = URL.createObjectURL(img);
                     console.log(img);
                 }
+                // get date & current date
                 var button = document.getElementById("btn");
                 var elements = document.getElementById("fail");
                 var d = new Date();
                 var m = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
                 var day = time[2];
                 var month = time[1];
-                if (month == m[d.getMonth()] && day == d.getDate()) {
+                var isOK = ((month == m[d.getMonth()] && day == d.getDate()) ? true : false);
+                // manage elements to display
+                if (isOK) {
                     button.disabled = false;
                     images.src = preview;
                     elements.style.visibility = "hidden";
