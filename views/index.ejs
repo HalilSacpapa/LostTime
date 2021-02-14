@@ -63,7 +63,7 @@
                 <form action="/upload" method="post" enctype="multipart/form-data">
                     <input type="file" accept="image/*" name="photo" onchange={onImageChange()}>
                     <p>Drag your files here or click in this area.</p>
-                    <button type="submit">Upload</button>
+                    <button id="btn" type="submit">Upload</button>
                     <img id="img"/>
                 </form>
                 <!-- Masthead Subheading-->
@@ -89,13 +89,25 @@
         <script src="js/scripts.js"></script>
         <script>
             function onImageChange() {
+                var images = document.getElementById("img");
                 if (event.target.files && event.target.files[0]) {
                     let img = event.target.files[0];
+                    var t = event.target.files[0].lastModifiedDate;
+                    var time = t.toString().split(" ");
                     var preview = URL.createObjectURL(img);
+                    images.src = preview;
                     console.log(img);
                 }
-                elem = document.getElementById("img");
-                elem.src = preview;
+                var button = document.getElementById("btn");
+                var d = new Date();
+                var m = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                var day = time[2];
+                var month = time[1];
+                if (month == m[d.getMonth()] && day == d.getDate()) {
+                    button.disabled = false;
+                } else {
+                    button.disabled = true;
+                }
             };
         </script>
     </body>
