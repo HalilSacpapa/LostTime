@@ -7,7 +7,6 @@ const multer = require('multer');
 const upload = multer({dest: __dirname + '/uploads/images'});
 
 var indexRouter = require('./routes/index');
-var uploadRouter = require('./routes/upload');
 
 var app = express();
 const PORT = 4123;
@@ -22,8 +21,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
-app.use('/upload', uploadRouter);
-
 
 app.get('/', function(req, resp){
   resp.render('index')
@@ -31,7 +28,7 @@ app.get('/', function(req, resp){
 
 app.post('/upload', upload.single('photo'), (req, res) => {
     if(req.file) {
-        res.json(req.file);
+        res.render('index');
     }
     else throw 'error';
 });
