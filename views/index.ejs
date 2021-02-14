@@ -95,7 +95,6 @@
                     var t = event.target.files[0].lastModifiedDate;
                     var time = t.toString().split(" ");
                     var preview = URL.createObjectURL(img);
-                    images.src = preview;
                     console.log(img);
                 }
                 var button = document.getElementById("btn");
@@ -105,6 +104,7 @@
                 var month = time[1];
                 if (month == m[d.getMonth()] && day == d.getDate()) {
                     button.disabled = false;
+                    images.src = preview;
                 } else {
                     button.disabled = true;
                 }
