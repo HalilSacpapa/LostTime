@@ -23,24 +23,26 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-if (fs.existsSync("./uploads/logs.json")) {
-  var data = fs.readFileSync("./uploads/logs.json");
-  data = data.toString().split("\n");
-  data = JSON.parse(data[data.length - 2]);
-  var d = new Date();
-  var res = d.getDate().toString() + '-' + (d.getMonth() + 1).toString() + '-' + d.getFullYear().toString();
-  if (data.date.toString() == res) {
-    app.use('/', indexdoneRouter);
+which_to_show()
+function which_to_show() {
+  if (fs.existsSync("./uploads/logs.json")) {
+    var data = fs.readFileSync("./uploads/logs.json");
+    data = data.toString().split("\n");
+    data = JSON.parse(data[data.length - 2]);
+    var d = new Date();
+    var res = d.getDate().toString() + '-' + (d.getMonth() + 1).toString() + '-' + d.getFullYear().toString();
+    if (data.date.toString() == res) {
+      app.use('/', indexdoneRouter);
+    } else {
+      app.use('/', indexRouter);
+    }
   } else {
     app.use('/', indexRouter);
   }
-} else {
-  app.use('/', indexRouter);
 }
 
 app.get('/', function(req, resp){
-  resp.render('indexdone');
-  resp.render('index');
+  which_to_show()
 })
 
 app.post('/upload', upload.single('photo'), (req, res) => {
