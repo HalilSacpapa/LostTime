@@ -38,7 +38,6 @@ if (fs.existsSync("./uploads/logs.json")) {
   app.use('/', indexRouter);
 }
 
-
 app.get('/', function(req, resp){
   resp.render('indexdone');
   resp.render('index');
@@ -50,14 +49,13 @@ app.post('/upload', upload.single('photo'), (req, res) => {
     var fullDate = d.getDate() + '-' + (d.getMonth() + 1) + '-' + d.getFullYear();
     relative_path = "/uploads/images/" + req.file.filename;
     filetype = ((req.file.mimetype).split("/"))[1];
-    data = {
-      path:relative_path,
+    log = {
+      date:fullDate,
       name:req.file.originalname,
+      path:relative_path,
       type:filetype,
       state:5
     };
-    log = { [fullDate]:data };
-    console.log(log);
     fs.appendFile('uploads/logs.json', JSON.stringify(log) + '\n', (err) => {
       res.redirect('/');
     })
