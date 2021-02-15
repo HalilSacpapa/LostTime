@@ -62,16 +62,16 @@
                 <input type="submit" value="upload">
                 </form> -->
                 <form action="/upload" method="post" enctype="multipart/form-data">
-                    <input type="file" accept="image/*" name="photo" onchange={onImageChange()}>
-                    <p>Drag your files here or click in this area.</p>
-                    <button id="btn" type="submit">Upload</button>
+                    <img style="width: 493px;" id="img"/>
+                    <input id= "dropzone" type="file" accept="image/*" name="photo" onchange={onImageChange()}>
+                    <p id="textToHidden">Drag your files here or click in this area.</p>
+                    <button style="visibility: hidden; margin-top: 30px;" id="btn" type="submit">Upload</button>
                     <h4 id="fail" style="visibility: hidden; text-align: center; color: #9a0606; margin: 20px;">This picture cannot be uploaded.</h4>
-                    <img style="width: 500px" id="img"/>
                 </form>
                 <!-- HERE CLEMENT HERE -->
-                <br><br><br><br><br><br><br><br><p>Input a single-word tag for your image.</p>
+                <br><br><br><br><br><br><br><br><p style="margin-top: 40px;">Input a single-word tag for your image.</p>
                     <input type="text"><br><br><br>
-                <div class="center" style="margin-top: 300px;">
+                <div class="center" style="margin-top: 350px;">
                     <div class="box">
                         <input type="radio" class="angry" name="emoji" checked>
                         <a class="hidden">Worst</a>
@@ -128,11 +128,17 @@
                 var day = time[2];
                 var month = time[1];
                 var isOK = ((month == m[d.getMonth()] && day == d.getDate()) ? true : false);
+                var image = document.getElementById("image");
+                var dropzone = document.getElementById("dropzone");
+                var textToHidden = document.getElementById("textToHidden");
                 // manage elements to display
                 if (isOK) {
                     button.disabled = false;
                     images.src = preview;
                     elements.style.visibility = "hidden";
+                    textToHidden.style.visibility = "hidden"
+                    button.style.visibility = "visible"
+                    dropzone.style.visibility = "hidden"
                 } else {
                     button.disabled = true;
                     images.src = "/";
