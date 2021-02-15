@@ -42,7 +42,20 @@ function which_to_show() {
 }
 
 app.get('/', function(req, resp){
-  which_to_show()
+  if (fs.existsSync("./uploads/logs.json")) {
+    var data = fs.readFileSync("./uploads/logs.json");
+    data = data.toString().split("\n");
+    data = JSON.parse(data[data.length - 2]);
+    var d = new Date();
+    var res = d.getDate().toString() + '-' + (d.getMonth() + 1).toString() + '-' + d.getFullYear().toString();
+    if (data.date.toString() == res) {
+      resp.render('indexRouter');
+    } else {
+      resp.render('indexRouter');
+    }
+  } else {
+    resp.render('indexRouter');
+  }
 })
 
 app.post('/upload', upload.single('photo'), (req, res) => {
@@ -59,7 +72,7 @@ app.post('/upload', upload.single('photo'), (req, res) => {
       state:5
     };
     fs.appendFile('uploads/logs.json', JSON.stringify(log) + '\n', (err) => {
-      res.redirect('/');
+      res.render('indexdone');
     })
   }
   else throw 'error';
@@ -69,7 +82,6 @@ app.listen(PORT, () => {
   console.log('Listening at ' + PORT );
 });
 
-// catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
