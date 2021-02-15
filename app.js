@@ -72,7 +72,9 @@ app.post('/upload', upload.single('photo'), (req, res) => {
       state:5
     };
     fs.appendFile('uploads/logs.json', JSON.stringify(log) + '\n', (err) => {
-      res.render('indexdone');
+      const content = fs.readFileSync("quotes.txt").toString().split("\n\n");
+      var tmp = Math.floor(Math.random() * (content.length - 1))
+      res.render('indexdone', {quote:content[tmp]});
     })
   }
   else throw 'error';
